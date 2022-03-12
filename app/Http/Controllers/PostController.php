@@ -11,7 +11,8 @@ class PostController extends Controller
         $posts = Post::get();
 
         if ($posts || empty($posts)) {
-            return 'POSTS ARE EMPTY';
+            $data = 'POSTS ARE EMPTY';
+            return $data;
         } else {
             $data = array (
                 'id' => $posts->id,
