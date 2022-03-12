@@ -19,4 +19,4 @@ use App\Http\Controllers\PostController;
 //    return $request->user();
 //});
 
-Route::get('/posts', 'PostController@get');
+

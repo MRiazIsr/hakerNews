@@ -8,18 +8,23 @@ use App\Models\Post;
 class PostController extends Controller
 {
     public static function get () {
+
         $posts = Post::get();
 
-        if ($posts || empty($posts)) {
+        if ( !$posts || $posts->count() == 0 ) {
             $data = 'POSTS ARE EMPTY';
-            return $data;
+
+
         } else {
-            $data = array (
-                'id' => $posts->id,
-                'content' => $posts->content
-            );
-            return json_encode($data);
+
+            $data = $posts->map(function ($post) {
+                return collect($post->toArray())
+                    ->only(['id', 'content'])
+                    ->all();
+            });
         }
+
+        return json_encode($data);
     }
 
     public static function create (Request $request) {
@@ -34,7 +39,7 @@ class PostController extends Controller
         //
     }
 
-    private static function doCalculation ($someData){
+    private static function doCalc ($someData){
         //
     }
 
