@@ -1,0 +1,37 @@
+version: '3.8'
+services:
+    main:
+        build:
+            context: .
+            dockerfile: Dockerfile
+        command: 'php artisan serve --host=0.0.0.0 && php artisan migrate:fresh --seed'
+        volumes:
+            - .:/app
+        ports:
+            - 8000:8000
+        depends_on:
+            - hackernewsdb
+
+    queue:
+        build:
+            context: .
+            dockerfile: Dockerfile
+        command: 'php artisan queue:work'
+        depends_on:
+            - hackernewsdb
+
+    hackernewsdb:
+        platform: linux/x86_64
+        image: mysql:5.6
+        command: --init-file /sites/localhost/hakerNews/init.sql
+        environment:
+          MYSQL_DATABASE: hackernews
+          MYSQL_USER: TestUser
+          MYSQL_PASSWORD: Mm13071993
+          MYSQL_ROOT: admin
+          MYSQL_ALLOW_EMPTY_PASSWORD: 1
+          MYSQL_ROOT_HOST: '%'
+        volumes:
+          - ./init.sql:/sites/localhost/hakerNews/init.sql
+        ports:
+            - 3306:3306
