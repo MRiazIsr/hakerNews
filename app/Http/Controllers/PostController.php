@@ -28,7 +28,11 @@ class PostController extends Controller
     }
 
     public static function create (Request $request) {
-        //
+        //$post = Post::create([
+        //            'subject' => $request->post('subject'),
+        //            'content' => $request->post('content'),
+        //            'rating' => $request->post('rating'),
+        //        ]);
     }
 
     public static function edit (Request $request) {

@@ -4,7 +4,7 @@ services:
         build:
             context: .
             dockerfile: Dockerfile
-        command: 'php artisan serve --host=0.0.0.0 && php artisan migrate:fresh --seed'
+        command: 'php artisan serve --host=0.0.0.0'
         volumes:
             - .:/app
         ports:
